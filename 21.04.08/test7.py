@@ -3,7 +3,7 @@ from aJPloy_back import initialPopulation, evaluate, getParents, getVari, getCro
 import time
 from testData import getData
 
-personNum = 50  # 种群大小
+personNum = 5  # 种群大小
 length = 17  # 个体长度
 mutationProbability = 0.6  # 变异概率
 
@@ -26,7 +26,7 @@ if __name__ == '__main__':
             print(population)
 
             for person in population:
-                evalList.append(evaluate(data, mid, person))
+                evalList.append(evaluate(person, data, mid))
             maxEval = max(evalList)
             print('maxEval=', maxEval)
             theIndex = evalList.index(maxEval)
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
             evalList = []
             for person in population:
-                evalList.append(evaluate(data, mid, person))
+                evalList.append(evaluate(person, data, mid))
             maxEval = max(evalList)
             if theBestEval < maxEval:
                 theBestEval = maxEval
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     print(bestPerson)
     theBestEvalList = []
     for item in bestPerson:
-        theBestEvalList.append(evaluate(data, mid, item))
+        theBestEvalList.append(evaluate(item, data, mid))
     print(theBestEvalList)
     print(theBestEval)
     print(max(theScore))

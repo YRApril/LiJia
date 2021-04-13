@@ -12,6 +12,8 @@ import random
 personNum = 50  # 种群大小
 length = 17  # 个体长度
 mutationProbability = 0.6  # 变异概率
+data = getData()
+mid = int(data.shape[0] * 0.8)
 
 
 def decode(onePerson):
@@ -139,13 +141,13 @@ def getMAE(data, mid):
     return mean_absolute_error(y1_test_org, linear_svr_y_predict_org1_gv)  # 计算 平均绝对误差 并返回
 
 
-def evaluate(data, mid, onePerson):
+def evaluate(onePerson, data=data, mid=mid):
     """
     计算x,y对应的函数值
 
+    :param onePerson: 单个个体编码
     :param data:
     :param mid:
-    :param onePerson: 单个个体编码
     :return:
     """
     x, y = decode(onePerson)  # 编码转换
@@ -219,8 +221,6 @@ if __name__ == '__main__':
     bestPerson = []  # 最佳个体列表
     theBestEval = 0
     iteration = 20  # 最大代数
-    data = getData()
-    mid = int(data.shape[0] * 0.8)
 
     for i in range(20):  # 设置跑多少轮，用来查看收敛性的
         population = initialPopulation(personNum, length)  # 生成初始化种群
@@ -233,7 +233,7 @@ if __name__ == '__main__':
 
             "计算种群中每个个体的效用值,并放入评估列表"
             for person in population:
-                evalList.append(evaluate(data, mid, person))
+                evalList.append(evaluate(person, data, mid))
 
             maxEval = max(evalList)  # 效用值最大值
             theIndex = evalList.index(maxEval)  # 效用值最大值索引
@@ -261,7 +261,7 @@ if __name__ == '__main__':
 
             "计算新种群中每个个体的效用值,并放入评估列表"
             for person in population:
-                evalList.append(evaluate(data, mid, person))
+                evalList.append(evaluate(person, data, mid))
 
             maxEval = max(evalList)  # 新种群效用值最大值
 
@@ -285,7 +285,7 @@ if __name__ == '__main__':
     theBestEvalList = []
     "评估所有代数中的最佳个体"
     for item in bestPerson:
-        theBestEvalList.append(evaluate(data, mid, item))
+        theBestEvalList.append(evaluate(item, data, mid))
     print(theBestEvalList)
     print(theBestEval)
     print(max(theScore))
