@@ -2,18 +2,22 @@ import numpy as np
 import scipy
 import scipy.stats
 import matplotlib as mpl
+import math
 import matplotlib.pyplot as plt
 # Part 3: A real world example
 
-from MCMC import metropolis_hastings,acceptance
+from MCMC import metropolis_hastings, acceptance
 
 sunspots = np.loadtxt("data/SN_m_tot_V2.0.csv", delimiter=';')
 
 # years is the third column
-years = sunspots[:, 2]
+years = sunspots[:, 2]  # 年
+
 # activity is the 4th column
-activity = sunspots[:, 3] + 0.1
+activity = sunspots[:, 3] + 0.1  # 活动
+
 print(years.shape, activity.shape)
+
 fig = plt.figure(figsize=(20, 20))
 ax = fig.add_subplot(2, 1, 1)
 
@@ -23,6 +27,8 @@ ax.set_xlabel("Years")
 ax.set_ylabel("Monthly mean count of sunspots")
 ax.set_title("Figure 7: Sunspots, 1749-2018")
 ax.legend()
+# fig.show()
+# exit()
 
 ax = fig.add_subplot(2, 1, 2)
 print(years[432])
@@ -32,6 +38,8 @@ ax.set_xlabel("Years")
 ax.set_ylabel("Monthly mean count of sunspots")
 ax.set_title("Figure 8: Sunspots, 1749-1785")
 ax.legend()
+# fig.show()
+# exit()
 
 fig = plt.figure(figsize=(10, 10))
 ax = fig.add_subplot(1, 1, 1)
@@ -39,9 +47,11 @@ ax.hist(activity, bins=40, density=True)
 ax.set_xlabel("Sunspot count")
 ax.set_ylabel("Frequency")
 ax.set_title("Figure 9: Histogram showing the frequency of sunspot counts over 270 years (1749-2018)")
+# fig.show()
+# exit()
+
 
 transition_model = lambda x: np.random.normal(x, [0.05, 5], (2,))
-import math
 
 
 def prior(w):
@@ -75,6 +85,8 @@ ax.set_xlabel("a")
 ax.set_ylabel("b")
 ax.legend()
 ax.set_title("Figure 10: MCMC sampling for $a$ and $b$ with Metropolis-Hastings. First 50 samples are shown.")
+# fig.show()
+# exit()
 
 ax = fig.add_subplot(3, 1, 2)
 ax.plot(accepted[:, 0], accepted[:, 1], label="Path")
@@ -84,6 +96,8 @@ ax.set_xlabel("a")
 ax.set_ylabel("b")
 ax.legend()
 ax.set_title("Figure 11: MCMC sampling for $a$ and $b$ with Metropolis-Hastings. All samples are shown.")
+# fig.show()
+# exit()
 
 to_show = 50
 ax = fig.add_subplot(3, 1, 3)
@@ -94,6 +108,8 @@ ax.set_xlabel("a")
 ax.set_ylabel("b")
 ax.legend()
 ax.set_title("Figure 12: MCMC sampling for $a$ and $b$ with Metropolis-Hastings. Last 50 samples are shown.")
+# fig.show()
+# exit()
 
 show = int(-0.5 * accepted.shape[0])
 hist_show = int(-0.50 * accepted.shape[0])
@@ -104,12 +120,15 @@ ax.plot(accepted[show:, 0])
 ax.set_title("Figure 13: Trace for $a$")
 ax.set_xlabel("Iteration")
 ax.set_ylabel("a")
+
 ax = fig.add_subplot(1, 2, 2)
 ax.hist(accepted[hist_show:, 0], bins=20, density=True)
 ax.set_ylabel("Frequency (normed)")
 ax.set_xlabel("a")
 ax.set_title("Figure 14: Histogram of $a$")
 fig.tight_layout()
+# fig.show()
+# exit()
 
 fig = plt.figure(figsize=(15, 7))
 ax = fig.add_subplot(1, 2, 1)
@@ -117,12 +136,15 @@ ax.plot(accepted[show:, 1])
 ax.set_title("Figure 15: Trace for $b$")
 ax.set_xlabel("Iteration")
 ax.set_ylabel("b")
+
 ax = fig.add_subplot(1, 2, 2)
 ax.hist(accepted[hist_show:, 1], bins=20, density=True)
 ax.set_ylabel("Frequency (normed)")
 ax.set_xlabel("b")
 ax.set_title("Figure 16: Histogram of $b$")
 fig.tight_layout()
+# fig.show()
+# exit()
 
 fig = plt.figure(figsize=(10, 7))
 ax = fig.add_subplot(1, 1, 1)
@@ -133,13 +155,17 @@ ax.set_xlabel("a")
 ax.set_ylabel("b")
 fig.colorbar(im, ax=ax)
 ax.set_title("2D histogram showing the joint distribution of $a$ and $b$")
+# fig.show()
+# exit()
 
 show = -int(0.5 * accepted.shape[0])
 
 mu = accepted[show:, 0].mean()
 sigma = accepted[show:, 1].mean()
 print(mu, sigma)
-model = lambda t, mu, sigma: np.random.gamma(mu, sigma, t)
+
+model = lambda t, mu, sigma: np.random.gamma(mu, sigma, t)  # 方法
+
 t = np.arange(activity.shape[0])
 observation_gen = model(t.shape[0], mu, sigma)
 fig = plt.figure(figsize=(10, 10))
