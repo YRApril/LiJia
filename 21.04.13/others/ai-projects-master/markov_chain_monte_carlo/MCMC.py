@@ -486,8 +486,9 @@ plt.plot(x, y, color='forestgreen',
 plt.fill_between(x, y, color='forestgreen', alpha=0.2)
 
 # Plot the observed values
-plt.hist(duration, bins=10, color='red', alpha=0.8,
-         label='Observed', normed=True)
+# plt.hist(duration, bins=10, color='red', alpha=0.8, label='Observed', normed=True)
+plt.hist(duration, bins=10, color='red', alpha=0.8, label='Observed', density=True, stacked=True)
+
 plt.xlabel('Hours')
 plt.ylabel('Probability')
 plt.title('Duration Model')
