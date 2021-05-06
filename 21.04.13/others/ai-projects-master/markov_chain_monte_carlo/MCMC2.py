@@ -194,7 +194,7 @@ def sleep_mode_use():
     plt.show()
     # -----------------------------------5000个样本的睡眠概率分布-----------------------------------------------------------------
     # 设定概率预测的时间长度
-    time_est = np.linspace(time.min() - 15, time.max() + 15, 1e3)[:, None]
+    time_est = np.linspace(time.min() - 15, time.max() + 15, int(1e3))[:, None]
     # 取参数的均值
     alpha_est = alpha_samples.mean()
     beta_est = beta_samples.mean()
@@ -299,7 +299,7 @@ def wake_mode_use():
     # ------------------------------100个样本的后验概率--------------------------------------------------------------------
     alpha_samples = wake_trace["alpha"][100:, None]
     beta_samples = wake_trace["beta"][100:, None]
-    time_est = np.linspace(time.min() - 15, time.max() + 15, 1e3)[:, None]
+    time_est = np.linspace(time.min() - 15, time.max() + 15, int(1e3))[:, None]
     alpha_est = alpha_samples.mean()
     beta_est = beta_samples.mean()
     wake_est = logistic(time_est, beta=beta_est, alpha=alpha_est)
@@ -355,7 +355,7 @@ def sleep_time_mode_use():
     # ---------------------------右偏睡眠时间长度概率密度----------------------------------------
     a = 3
     fig, ax = plt.subplots(1, 1)
-    x = np.linspace(6, 12, 1e3)
+    x = np.linspace(6, 12, int(1e3))
 
     figsize(10, 8)
     plt.hist(duration, bins=20, color='darkred', density=1, stacked=True)
@@ -433,12 +433,12 @@ def sleep_time_mode_use():
 
 # 主函数，进行调用
 if __name__ == '__main__':
-    # sleep_mode_use() #调用睡眠模型
+    sleep_mode_use() #调用睡眠模型
     # wake_mode_use()  #调用清醒数据模型
     # sleep_time_mode_use() #调用睡眠长度模型
-    test1()  # 睡眠数据分布_散点图
-    test2()  # 清醒数据分布_散点图
-    test3()  # 只有beat参数的逻辑函数
-    test4()  # 不同beat和alpha参数的逻辑函数
-    test5()  # 不同a和t为参数的正太分布曲线
-    test6()  # 正太先验变量的参数空间
+    # test1()  # 睡眠数据分布_散点图
+    # test2()  # 清醒数据分布_散点图
+    # test3()  # 只有beat参数的逻辑函数
+    # test4()  # 不同beat和alpha参数的逻辑函数
+    # test5()  # 不同a和t为参数的正太分布曲线
+    # test6()  # 正太先验变量的参数空间
