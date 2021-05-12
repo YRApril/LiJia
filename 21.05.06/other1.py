@@ -1,6 +1,12 @@
+import readData
+from sklearn.manifold import TSNE
 
-a = '''125
-463
-456'''
+data = readData.readDataAsDataFrame()
 
-print(a)
+data = data.fillna(0)
+
+print(data)
+
+tsne = TSNE()
+x_temp_trans = tsne.fit_transform(data)
+print(x_temp_trans)
