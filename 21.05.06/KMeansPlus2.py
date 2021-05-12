@@ -1,7 +1,7 @@
 import numpy as np
 import random
 from sklearn.cluster import KMeans
-from task2.task2_execute import readData
+import readData
 
 # 测试执行
 # X = np.array([[0, 2], [0, 0], [1, 0], [5, 0], [5, 2]])
@@ -11,3 +11,5 @@ kmeans_model=KMeans(n_clusters=5,init='k-means++',random_state=11)
 # 进行聚类处理
 y_pred=kmeans_model.fit_predict(X)
 print("y_pred", y_pred)
+
+print(type(y_pred))
