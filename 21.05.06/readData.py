@@ -33,5 +33,5 @@ def readDataAsDataFrame():
     return data
 
 
-data = readDataAsDataFrame()
-print(data)
+# data = readDataAsDataFrame()
+# print(data)
