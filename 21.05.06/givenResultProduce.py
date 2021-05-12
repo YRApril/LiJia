@@ -2,14 +2,21 @@ import pandas as pd
 import itertools
 import numpy as np
 
-A = []
-B = []
-C = []
-D = []
-E = []
+# # 显示所有列
+# pd.set_option('display.max_columns', None)
+# # 显示所有行
+# pd.set_option('display.max_rows', None)
+# # 设置value的显示长度为100，默认为50
+# pd.set_option('max_colwidth', 5000)
+
 
 
 def getGivenResult():
+    A = []
+    B = []
+    C = []
+    D = []
+    E = []
     for i in range(1, 151):
         A.append(i)
     for i in range(151, 431):
@@ -41,20 +48,39 @@ def getGroupResult(listAddr):
 
 
 def fullArrangement():
+    listOfAllResult = []
     array = [0, 1, 2, 3, 4]
     listA = []
     pailie = list(itertools.permutations(array))  # 要list一下，不然它只是一个对象
     for x in pailie:
         for y in x:
             listA.append(y)
-        print(listA)
+        # print(listA)
+        listOfAllResult.append(listA.copy())
         listA.clear()
-        print()
+        # print()
+    return listOfAllResult
 
 
-fullArrangement()
+# fullArrangement()
 
-data = getGroupResult([0, 1, 2, 3, 4])
+# data = getGroupResult([0, 1, 2, 3, 4])
+#
+# # data2 = pd.DataFrame(data.values.T, index=data.columns, columns=data.index)#转置
+#
+# print(data)
+# print(np.array(data))
+# print(type(np.array(data)))
 
-print(data)
-print(np.array(data))
+
+# #
+# lists = fullArrangement()
+#
+# for list in lists:
+#     print(list)
+#     data = getGroupResult(list)
+#     print(data)
+#     print(np.array((data)))
+#     print(np.array((data)).shape)
+#     data.drop(data.index,inplace=True)
+#     print()

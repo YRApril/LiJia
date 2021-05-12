@@ -36,6 +36,7 @@ def readDataAsDataFrame():
     # 关闭文件
     file.close()
     data = data.fillna(data.mean())
+    data = pd.DataFrame(data.values.T, index=data.columns, columns=data.index)  # 转置
     return data
 
 
@@ -53,7 +54,8 @@ def get2DimensionValue(data):
     return temp_trans
 
 
-
+#
 # data = readDataAsDataFrame()
 # data = get2DimensionValue(data)
 # print(data)
+# print(data.shape)
