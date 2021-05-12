@@ -4,8 +4,10 @@ import numpy as np
 from pandas import plotting
 import matplotlib.pyplot as plt  #matplotlib画图
 import seaborn as sns
+import readData
 
 # data = pd.read_csv('F:/machineLearning/DateSet/DataAnalysisTask/Kmeans/score.csv')
+# data = readData.readDataAsDataFrame()
 data = pd.read_csv('data/data111.csv')
 df=pd.DataFrame(data)
 print(df)
