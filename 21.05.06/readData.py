@@ -1,4 +1,8 @@
 import pandas as pd
+from sklearn.manifold import TSNE
+from sklearn import preprocessing
+import numpy as np
+
 
 users = []
 products = []
@@ -35,5 +39,21 @@ def readDataAsDataFrame():
     return data
 
 
+def get2DimensionValue(data):
+    """
+    降维
+    :param data:  原始数据 dataframe
+    :return: 降维后的ndarray
+    """
+    dataArray = np.array(data)
+    tDimensionValue = preprocessing.scale(dataArray) #标准化
+    tsne = TSNE()
+    temp_trans = tsne.fit_transform(tDimensionValue)
+    # print(temp_trans)
+    return temp_trans
+
+
+
 # data = readDataAsDataFrame()
+# data = get2DimensionValue(data)
 # print(data)
