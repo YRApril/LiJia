@@ -8,6 +8,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import warnings
+
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
+
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score
 warnings.filterwarnings('ignore')
 import os
@@ -19,7 +24,8 @@ output_size=1    #输出神经元个数
 lr=0.0006         #学习率
 #——————————————————导入数据——————————————————————
 #df=pd.read_csv("E:\\pythonProject-tensorflow\\股票数据.csv")
-df=pd.read_csv("F:/machineLearning/DateSet/DataAnalysisTask/stock/股票数据.csv")
+df=pd.read_csv("data/股票数据.csv")
+# df=pd.read_csv("F:/machineLearning/DateSet/DataAnalysisTask/stock/股票数据.csv")
 data=df.iloc[:,1:8].values #取第2-8列,data看似一个6529*7的一个矩阵
 #df.shape=(6529,16)
 #获取训练集
@@ -58,8 +64,8 @@ def get_test_data(time_step=20,test_begin=5000):
 #——————————————————定义神经网络变量——————————————————
 #输入层、输出层权重、偏置
 weights={
-         'in':tf.Variable(tf.random_normal([input_size,rnn_unit])),
-         'out':tf.Variable(tf.random_normal([rnn_unit,1]))
+         'in':tf.Variable(tf.random.normal([input_size,rnn_unit])),
+         'out':tf.Variable(tf.random.normal([rnn_unit,1]))
         }
 biases={
         'in':tf.Variable(tf.constant(0.1,shape=[rnn_unit,])),
